@@ -4,7 +4,7 @@ const mongoseMoment = require('mongoose-moment')(mongoose)
 const tripSchema = mongoose.Schema({
     departure: String,
     arrival: String,
-    date: 'Moment',
+    date: Date,
     price: Number
 })
 

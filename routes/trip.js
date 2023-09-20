@@ -61,7 +61,7 @@ const day = date.date();
 
 // console.log(departure, arrival, date)
 // Trip.find({departure, arrival, date= {$gte: new Date("2023-09-19"), $lte: new Date("2023-09-19")}})
-trips.find({
+trips.findOne({
   departure,
   arrival,
   // date: { $gte: new Date("2023-09-19"), $lte: new Date("2023-09-20") },
