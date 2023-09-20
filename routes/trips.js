@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const trips = require('../models/trip')
 const moment = require('moment')
+const timezone =require('moment-timezone')
 
 //Route GET qui recupère TOUS les trajets
 router.get('/', function(req, res) {
@@ -36,14 +37,18 @@ router.get('/', function(req, res) {
 
 
 router.get('/:departure/:arrival/:date', function(req,res){
-
   const {departure, arrival, date} = req.params;
-
   console.log({departure, arrival, date});
+  const start = moment(date).utc(1).startOf("day").toDate()
+  // const start = momen(date,"Europe/Paris").utc().startOf("day").toDate()
+  const end = moment(date).utc(1).endOf("day").toDate()
+  // const end = moment.tz(date,"Europe/Paris").utc().endOf("day").toDate()
 
-  trips.find({departure: req.params.departure, arrival: req.params.arrival, date: new moment().valueOf() }).then(data =>{
+
+  trips.find({departure: departure, arrival: arrival, date: {$gte: start, $lte: end}, }).then(data =>{
+    console.log("data", data);
     if(data) {
-    res.json({ result: true, departure: data.departure, arrival: data.departure, date: data.date });
+    res.json({ data });
     } else {
     res.json({ result: false, error: "City not found" });
     }
