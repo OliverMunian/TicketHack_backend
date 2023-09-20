@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var connection = require('./models/connections')
 
-var tripRouter = require('./routes/trip');
+var tripsRouter = require('./routes/trips');
 
 
 var app = express();
@@ -18,6 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', tripRouter);
+app.use('/trips', tripsRouter);
 
 module.exports = app;
